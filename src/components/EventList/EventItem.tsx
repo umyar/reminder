@@ -5,10 +5,10 @@ interface Props {
   event: Event;
 }
 
-export const EventItem: React.FC<Props> = ({ event: { event, time } }) => {
+export const EventItem: React.FC<Props> = ({ event: { title, date } }) => {
   return (
     <div>
-      {event} - {time}
+      {title} - {date}
     </div>
   );
 };

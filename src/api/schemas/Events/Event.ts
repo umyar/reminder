@@ -1,7 +1,7 @@
 export interface Event {
   id: string;
-  event: string;
-  time: string;
+  title: string;
+  date: string;
   icon?: File;
 }
 
