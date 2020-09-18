@@ -2,5 +2,10 @@
   "extends": "eslint-config-spiks",
   "parserOptions": {
     "project": "./tsconfig.json"
+  },
+  "rules": {
+    "no-await-in-loop": "off",
+    "@typescript-eslint/naming-convention": "warn",
+    "new-cap": "warn"
   }
 }

@@ -1,32 +1,55 @@
 import React, { useState } from 'react';
+import { useClient } from '../context';
 import { EventForm } from './EventForm/EventForm';
 
-export const NewEvent: React.FC = () => {
-  const [title, setTitle] = useState<string>('');
-  const [date, setDate] = useState<string>('');
-  const [icon, setIcon] = useState<any>(null);
+interface Props {
+  updateEvents: () => void;
+}
 
-  const saveEvent = () => {
-    console.log(title, date);
+export const NewEvent: React.FC<Props> = ({ updateEvents }) => {
+  const [eventTitle, setEventTitle] = useState<string>('');
+  const [eventDate, setEventDate] = useState<string>('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [eventIcon, setEventIcon] = useState<any>(null);
+
+  const client = useClient();
+
+  const cleanForm = (): void => {
+    setEventTitle('');
+    setEventDate('');
+    setEventIcon(null);
   };
 
-  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+  const onEventSaveCallback = (): void => {
+    cleanForm();
+    updateEvents();
   };
 
-  const onChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(e.target.value);
+  const saveEvent = (): void => {
+    const reqBody = {
+      title: eventTitle,
+      date: eventDate,
+      icon: eventIcon,
+    };
+
+    client.newEvent(reqBody, () => onEventSaveCallback());
+  };
+
+  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setEventTitle(e.target.value);
+  };
+
+  const onChangeDate = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setEventDate(e.target.value);
   };
 
   return (
-    <div>
-      <EventForm
-        submitForm={saveEvent}
-        title={title}
-        onChangeTitle={onChangeTitle}
-        date={date}
-        onChangeDate={onChangeDate}
-      />
-    </div>
+    <EventForm
+      submitForm={saveEvent}
+      title={eventTitle}
+      onChangeTitle={onChangeTitle}
+      date={eventDate}
+      onChangeDate={onChangeDate}
+    />
   );
 };

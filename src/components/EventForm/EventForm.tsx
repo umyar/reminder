@@ -15,16 +15,20 @@ export const EventForm: React.FC<Props> = ({
   onChangeDate,
   icon,
 }) => {
-  const onFormSubmit = (e: React.FormEvent) => {
+  const onFormSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    submitForm();
+
+    if (title.trim().length > 1) {
+      submitForm();
+    }
   };
 
   return (
     <form onSubmit={onFormSubmit}>
-      <input type="text" onChange={onChangeTitle} value={title} />
-      <input type="text" onChange={onChangeDate} value={date} />
-      <input type="submit" />
+      <input type="text" onChange={onChangeTitle} value={title} required />
+      <input type="datetime-local" onChange={onChangeDate} value={date} required />
+      <span>{icon}</span>
+      <input type="submit" value="Сохранить" />
     </form>
   );
 };

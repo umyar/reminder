@@ -1,11 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Client } from './api/Client';
+import { App } from './components/App';
+import { AppContext, AppContextValue } from './context';
+
 import './index.css';
-import App from './components/App';
+
+const apiHost = 'http://localhost:9000';
+
+const client = new Client(apiHost, () => alert('Произошла ошибка сервера'));
+
+const context: AppContextValue = {
+  client,
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AppContext.Provider value={context}>
+      <App />
+    </AppContext.Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

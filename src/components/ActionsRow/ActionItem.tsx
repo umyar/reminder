@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '../../ui/Button/Button';
 import { Action } from './Action';
 
 interface Props {
@@ -8,5 +9,9 @@ interface Props {
 // TODO: Реализовать иконку кнопки
 
 export const ActionItem: React.FC<Props> = ({ action }) => {
-  return <button onClick={action.action}>{action.label}</button>;
+  return (
+    <Button onClick={action.action} icon={action.icon}>
+      {action.label}
+    </Button>
+  );
 };
