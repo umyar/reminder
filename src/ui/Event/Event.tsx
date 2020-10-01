@@ -61,7 +61,7 @@ export const Event: React.FC<Props> = ({
   return (
     <li
       className={`collection-item avatar ${getBackgroundClassName(background)} ${
-        isHappeningNow && 'alarm'
+        isHappeningNow ? 'alarm' : ''
       }`}
     >
       <EventIcon src={icon} />

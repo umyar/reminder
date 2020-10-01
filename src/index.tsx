@@ -6,6 +6,7 @@ import { AppContext, AppContextValue } from './context';
 
 import './index.css';
 
+// TODO: Брать apiHost из .env
 const apiHost = 'http://localhost:9000';
 
 const client = new Client(apiHost, () => alert('Произошла ошибка сервера'));
