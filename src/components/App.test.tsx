@@ -51,6 +51,4 @@ test('Adding event', async () => {
   fireEvent.click(submitFormButton!);
 
   await wait(() => {});
-
-
 });

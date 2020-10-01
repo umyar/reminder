@@ -18,12 +18,14 @@
 }
 
 @keyframes vibro {
-  0%, 25% {
+  0%,
+  25% {
     left: -1px;
     -webkit-transform: translateX(-1px);
     transform: translateX(-1px);
   }
-  50%, 100% {
+  50%,
+  100% {
     left: 1px;
     -webkit-transform: translateX(1px);
     transform: translateX(1px);
