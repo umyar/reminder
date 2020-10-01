@@ -2,7 +2,7 @@ import React from 'react';
 import { Action } from './Action';
 import { ActionItem } from './ActionItem';
 
-import './actions.css';
+import './Actions.css';
 
 interface Props {
   actions: Action[];

@@ -5,7 +5,7 @@ import { DeleteIcon } from '../icons/DeleteIcon';
 import { EditIcon } from '../icons/EditIcon';
 import { EventIcon } from './EventIcon';
 
-import './event.css';
+import './Event.css';
 
 const getBackgroundClassName = (eventBackground: EventBackground): string => {
   switch (eventBackground) {

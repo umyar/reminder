@@ -2,6 +2,10 @@
   font-size: 20px;
 }
 
+.collection-item.avatar {
+  min-height: initial !important;
+}
+
 .collection-item {
   box-shadow: 2px 2px 6px 1px lightgrey;
   margin: 10px !important;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../../ui/Button/Button';
 import { EventBody } from '../../api/schemas/Events/Event';
 
-import './form.css';
+import './EventForm.css';
 
 interface Props extends EventBody {
   closeForm: () => void;

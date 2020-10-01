@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { wrongDateMessage } from '../constants';
 import { useClient } from '../context';
 import { EventForm } from './EventForm/EventForm';
 import { Event } from '../api/schemas/Events/Event';
@@ -38,6 +39,12 @@ export const EditEvent: React.FC<Props> = ({
   };
 
   const updateEvent = (): void => {
+    if (eventDate.length > 16) {
+      alert(wrongDateMessage);
+
+      return;
+    }
+
     const reqBody = {
       title: eventTitle,
       date: eventDate,
