@@ -1,6 +1,7 @@
 import React from 'react';
 import { Event } from '../../api/schemas/Events/Event';
 import { EventItem } from './EventItem';
+import './EventList.css';
 
 interface Props {
   events: Event[];

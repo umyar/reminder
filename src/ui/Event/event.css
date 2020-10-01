@@ -2,6 +2,12 @@
   font-size: 20px;
 }
 
+.collection-item {
+  box-shadow: 2px 2px 6px 1px lightgrey;
+  margin: 10px !important;
+  border-radius: 5px;
+}
+
 .alarm {
   animation: 0.2s vibro ease-out infinite;
   border: 2px dashed orangered !important;

@@ -42,6 +42,10 @@ export const App: React.FC = () => {
   };
 
   const handleDeleteEvent = (id: string): void => {
+    if (eventForEdit && eventForEdit.id === id) {
+      setEventForEdit(null);
+    }
+
     client.deleteEvent(
       id,
       () => getEvents(),
@@ -49,16 +53,11 @@ export const App: React.FC = () => {
     );
   };
 
-  useEffect(() => {
-    // TODO проверить то добавку то редакт
-  }, []);
-
   const actions = [
     { label: 'Добавить событие', action: () => toggleEventForm(), icon: <PlusSignIcon /> },
   ];
 
   // TODO: добавить индикатор редактирования/disable события в список (или убирать из списка)
-  // TODO: исправить баг с невозможностью открыть форму редактирования при форме создания
 
   return (
     <>
