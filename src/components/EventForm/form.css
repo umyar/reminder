@@ -1,0 +1,23 @@
+.row .col {
+  padding: 0;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-actions button {
+  margin-left: 1rem;
+}
+
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #2979ff !important;
+  box-shadow: 0 1px 0 0 #2979ff !important;
+}
+
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid #2979ff !important;
+  box-shadow: 0 1px 0 0 #2979ff !important;
+}
+

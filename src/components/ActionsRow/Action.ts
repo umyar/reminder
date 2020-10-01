@@ -2,6 +2,6 @@ import { ReactElement } from 'react';
 
 export interface Action {
   action: () => void;
-  label: string;
+  label?: string;
   icon?: ReactElement;
 }

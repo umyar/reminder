@@ -1,3 +1,25 @@
 .button-text {
   margin: 5px;
 }
+
+/* hover для transparent кнопок */
+.btn:hover,
+.btn-large:hover,
+.btn-small:hover {
+  background-color: #2979ff;
+  color: white;
+}
+
+.btn:hover svg path,
+.btn-large:hover svg path,
+.btn-small:hover svg path {
+  fill: white;
+}
+
+.danger:hover {
+  background-color: #ff4d4f;
+}
+
+.danger:hover svg path {
+  fill: white;
+}

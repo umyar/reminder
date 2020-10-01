@@ -4,12 +4,12 @@ import { EventForm } from './EventForm/EventForm';
 
 interface Props {
   updateEvents: () => void;
+  closeForm: () => void;
 }
 
-export const NewEvent: React.FC<Props> = ({ updateEvents }) => {
+export const NewEvent: React.FC<Props> = ({ updateEvents, closeForm }) => {
   const [eventTitle, setEventTitle] = useState<string>('');
   const [eventDate, setEventDate] = useState<string>('');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [eventIcon, setEventIcon] = useState<any>(null);
 
   const client = useClient();
@@ -18,6 +18,12 @@ export const NewEvent: React.FC<Props> = ({ updateEvents }) => {
     setEventTitle('');
     setEventDate('');
     setEventIcon(null);
+  };
+
+  // TODO: Унифицировать закрытие формы и очистку данных
+  const onCloseForm = (): void => {
+    cleanForm();
+    closeForm();
   };
 
   const onEventSaveCallback = (): void => {
@@ -45,11 +51,13 @@ export const NewEvent: React.FC<Props> = ({ updateEvents }) => {
 
   return (
     <EventForm
+      closeForm={onCloseForm}
       submitForm={saveEvent}
       title={eventTitle}
       onChangeTitle={onChangeTitle}
       date={eventDate}
       onChangeDate={onChangeDate}
+      submitButtonText="Добавить"
     />
   );
 };

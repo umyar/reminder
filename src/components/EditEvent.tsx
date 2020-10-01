@@ -6,12 +6,16 @@ import { Event } from '../api/schemas/Events/Event';
 interface Props {
   event: Event;
   updateEvents: () => void;
+  cancelEventEdit: () => void;
 }
 
-export const EditEvent: React.FC<Props> = ({ event: { id, title, date, icon }, updateEvents }) => {
+export const EditEvent: React.FC<Props> = ({
+  event: { id, title, date, icon },
+  updateEvents,
+  cancelEventEdit,
+}) => {
   const [eventTitle, setEventTitle] = useState<string>(title);
   const [eventDate, setEventDate] = useState<string>(date);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [eventIcon, setEventIcon] = useState<any>(icon);
 
   const client = useClient();
@@ -22,8 +26,14 @@ export const EditEvent: React.FC<Props> = ({ event: { id, title, date, icon }, u
     setEventIcon(null);
   };
 
-  const onEventEditCallback = (): void => {
+  // TODO: Унифицировать закрытие формы и очистку данных
+  const onCloseForm = (): void => {
     cleanForm();
+    cancelEventEdit();
+  };
+
+  const onEventEditCallback = (): void => {
+    cancelEventEdit();
     updateEvents();
   };
 
@@ -47,11 +57,13 @@ export const EditEvent: React.FC<Props> = ({ event: { id, title, date, icon }, u
 
   return (
     <EventForm
+      closeForm={onCloseForm}
       submitForm={updateEvent}
       title={eventTitle}
       onChangeTitle={onChangeTitle}
       date={eventDate}
       onChangeDate={onChangeDate}
+      submitButtonText="Сохранить"
     />
   );
 };

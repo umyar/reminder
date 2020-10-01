@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Event as IEvent } from '../../api/schemas/Events/Event';
+import { getEventBackground } from '../../helpers/getEventBackground';
+import { getRemainingSecondsToGivenDate } from '../../helpers/getEventItemInitialState';
 import { Event } from '../../ui/Event/Event';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getTimeFromDateToNow } from '../../helpers/getTimeFromDateToNow';
+import { getRemainingTime } from '../../helpers/getTimeFromDateToNow';
 
 interface Props {
   event: IEvent;
@@ -11,17 +12,37 @@ interface Props {
 }
 
 export const EventItem: React.FC<Props> = ({
-  event: { id, title, icon },
+  event: { id, title, date, icon },
   editEvent,
   deleteEvent,
 }) => {
-  // const remainingTime = getTimeFromDateToNow(date);
-  const remainingTime = 'некоторое время';
+  const [seconds, setSeconds] = useState<number>(getRemainingSecondsToGivenDate(date));
+  // TODO: сбрасывать состояние после успешного редактирования события
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds(prevValue => {
+        if (prevValue <= 0) {
+          return 0;
+        }
+
+        return prevValue - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  });
+
+  const eventBackground = getEventBackground(seconds);
+  const remainingTime = getRemainingTime(seconds);
+  const isEventHappeningNow = seconds <= 3 && seconds > 0;
 
   return (
     <Event
       id={id}
       title={title}
+      isHappeningNow={isEventHappeningNow}
+      background={eventBackground}
       remainingTime={remainingTime}
       icon={icon}
       onEditClick={editEvent}

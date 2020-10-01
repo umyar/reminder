@@ -6,6 +6,8 @@
   "rules": {
     "no-await-in-loop": "off",
     "@typescript-eslint/naming-convention": "warn",
-    "new-cap": "warn"
-  }
+    "new-cap": "warn",
+    "no-else-return": "off"
+  },
+  "ignorePatterns": ["*.test.*"]
 }

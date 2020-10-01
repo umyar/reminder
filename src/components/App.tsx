@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useClient } from '../context';
+import { PlusSignIcon } from '../ui/icons/PlusIcon';
 import { Loader } from '../ui/Loader/Loader';
 import { ActionsRow } from './ActionsRow/ActionsRow';
 import { EditEvent } from './EditEvent';
@@ -10,9 +11,7 @@ import { Event } from '../api/schemas/Events/Event';
 
 export const App: React.FC = () => {
   const [newEventFormIsOpened, setNewEventFormIsOpened] = useState<boolean>(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [eventForEdit, setEventForEdit] = useState<Event | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [events, setEvents] = useState<Event[] | null>(null);
 
   const client = useClient();
@@ -25,17 +24,21 @@ export const App: React.FC = () => {
     getEvents();
   }, [getEvents]);
 
-  const toggleNewEventForm = (): void => {
+  const toggleEventForm = (): void => {
     setNewEventFormIsOpened(prevValue => !prevValue);
   };
 
-  const handleEditEvent = (): void => {
-    // const event = events.find(event => event.id === eventId);
-    //
-    // if (event) {
-    //   setEventForEdit(event);
-    // }
-    console.log('edit');
+  const handleEditEvent = (id: string): void => {
+    const eventToEditForm = events!.find(event => event.id === id);
+
+    if (eventToEditForm) {
+      setNewEventFormIsOpened(false);
+      setEventForEdit(eventToEditForm);
+    }
+  };
+
+  const cancelEventEdit = (): void => {
+    setEventForEdit(null);
   };
 
   const handleDeleteEvent = (id: string): void => {
@@ -46,24 +49,35 @@ export const App: React.FC = () => {
     );
   };
 
+  useEffect(() => {
+    // TODO проверить то добавку то редакт
+  }, []);
+
   const actions = [
-    { label: 'Добавить событие', action: () => toggleNewEventForm(), icon: <span>+</span> },
+    { label: 'Добавить событие', action: () => toggleEventForm(), icon: <PlusSignIcon /> },
   ];
 
+  // TODO: добавить индикатор редактирования/disable события в список (или убирать из списка)
+  // TODO: исправить баг с невозможностью открыть форму редактирования при форме создания
+
   return (
-    <div>
+    <>
       <Header />
       <ActionsRow actions={actions} />
       {newEventFormIsOpened ? (
-        <NewEvent updateEvents={getEvents} />
+        <NewEvent updateEvents={getEvents} closeForm={toggleEventForm} />
       ) : eventForEdit ? (
-        <EditEvent event={eventForEdit} updateEvents={getEvents} />
+        <EditEvent
+          event={eventForEdit}
+          updateEvents={getEvents}
+          cancelEventEdit={cancelEventEdit}
+        />
       ) : null}
       {events === null ? (
         <Loader />
       ) : (
         <EventList events={events} editEvent={handleEditEvent} deleteEvent={handleDeleteEvent} />
       )}
-    </div>
+    </>
   );
 };
